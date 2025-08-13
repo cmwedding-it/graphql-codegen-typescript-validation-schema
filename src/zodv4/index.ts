@@ -284,7 +284,7 @@ function generateFieldTypeZodSchema(config: ValidationSchemaPluginConfig, visito
     if (!isNonNullType(parentType)) {
       const arrayGen = `z.array(${maybeLazy(type.type, gen)})`;
       const maybeLazyGen = applyDirectives(config, field, arrayGen);
-      return `${maybeLazyGen}.nullish()`;
+      return `${maybeLazyGen}.nullable()`;
     }
     return `z.array(${maybeLazy(type.type, gen)})`;
   }
@@ -329,7 +329,7 @@ function generateFieldTypeZodSchema(config: ValidationSchemaPluginConfig, visito
     if (isListType(parentType))
       return `${appliedDirectivesGen}.nullable()`;
 
-    return `${appliedDirectivesGen}.nullish()`;
+    return `${appliedDirectivesGen}.nullable()`;
   }
   console.warn('unhandled type:', type);
   return '';

@@ -67,7 +67,7 @@ describe('zodv4', () => {
     `);
   })
 
-  it('nullish', async () => {
+  it('nullable', async () => {
     const schema = buildSchema(/* GraphQL */ `
       input PrimitiveInput {
         a: ID
@@ -97,11 +97,11 @@ describe('zodv4', () => {
 
       export function PrimitiveInputSchema(): z.ZodObject<Properties<PrimitiveInput>> {
         return z.object({
-          a: z.string().nullish(),
-          b: z.string().nullish(),
-          c: z.boolean().nullish(),
-          d: z.number().nullish(),
-          e: z.number().nullish(),
+          a: z.string().nullable(),
+          b: z.string().nullable(),
+          c: z.boolean().nullable(),
+          d: z.number().nullable(),
+          e: z.number().nullable(),
           z: z.string()
         })
       }
@@ -136,11 +136,11 @@ describe('zodv4', () => {
 
       export function ArrayInputSchema(): z.ZodObject<Properties<ArrayInput>> {
         return z.object({
-          a: z.array(z.string().nullable()).nullish(),
-          b: z.array(z.string()).nullish(),
+          a: z.array(z.string().nullable()).nullable(),
+          b: z.array(z.string()).nullable(),
           c: z.array(z.string()),
-          d: z.array(z.array(z.string().nullable()).nullish()).nullish(),
-          e: z.array(z.array(z.string().nullable())).nullish(),
+          d: z.array(z.array(z.string().nullable()).nullable()).nullable(),
+          e: z.array(z.array(z.string().nullable())).nullable(),
           f: z.array(z.array(z.string().nullable()))
         })
       }
@@ -265,8 +265,8 @@ describe('zodv4', () => {
 
       export function NestedInputSchema(): z.ZodObject<Properties<NestedInput>> {
         return z.object({
-          child: z.lazy(() => NestedInputSchema().nullish()),
-          childrens: z.array(z.lazy(() => NestedInputSchema().nullable())).nullish()
+          child: z.lazy(() => NestedInputSchema().nullable()),
+          childrens: z.array(z.lazy(() => NestedInputSchema().nullable())).nullable()
         })
       }
       "
@@ -375,7 +375,7 @@ describe('zodv4', () => {
 
       export function HttpInputSchema(): z.ZodObject<Properties<HttpInput>> {
         return z.object({
-          method: HttpMethodSchema.nullish(),
+          method: HttpMethodSchema.nullable(),
           url: definedNonNullAnySchema
         })
       }
@@ -756,7 +756,7 @@ describe('zodv4', () => {
       export function ScalarsInputSchema(): z.ZodObject<Properties<ScalarsInput>> {
         return z.object({
           date: z.date(),
-          email: z.string().email().nullish(),
+          email: z.string().email().nullable(),
           str: z.string()
         })
       }
@@ -801,7 +801,7 @@ describe('zodv4', () => {
       export function ScalarsInputSchema(): z.ZodObject<Properties<ScalarsInput>> {
         return z.object({
           date: z.string(),
-          email: z.string().email().nullish(),
+          email: z.string().email().nullable(),
           str: z.string()
         })
       }
@@ -925,10 +925,10 @@ describe('zodv4', () => {
     expect(result.content).toContain('export function PageInputSchema(): z.ZodObject<Properties<PageInput>>');
 
     expect(result.content).toContain('pageType: PageTypeSchema.default(PageType.Public)');
-    expect(result.content).toContain('greeting: z.string().default("Hello").nullish()');
-    expect(result.content).toContain('score: z.number().default(100).nullish()');
-    expect(result.content).toContain('ratio: z.number().default(0.5).nullish()');
-    expect(result.content).toContain('isMember: z.boolean().default(true).nullish()');
+    expect(result.content).toContain('greeting: z.string().default("Hello").nullable()');
+    expect(result.content).toContain('score: z.number().default(100).nullable()');
+    expect(result.content).toContain('ratio: z.number().default(0.5).nullable()');
+    expect(result.content).toContain('isMember: z.boolean().default(true).nullable()');
   });
 
   it('with default input values as enum types with underscores', async () => {
@@ -961,10 +961,10 @@ describe('zodv4', () => {
     expect(result.content).toContain('export function PageInputSchema(): z.ZodObject<Properties<PageInput>>');
 
     expect(result.content).toContain('pageType: PageTypeSchema.default(PageType.Basic_Auth)');
-    expect(result.content).toContain('greeting: z.string().default("Hello").nullish()');
-    expect(result.content).toContain('score: z.number().default(100).nullish()');
-    expect(result.content).toContain('ratio: z.number().default(0.5).nullish()');
-    expect(result.content).toContain('isMember: z.boolean().default(true).nullish()');
+    expect(result.content).toContain('greeting: z.string().default("Hello").nullable()');
+    expect(result.content).toContain('score: z.number().default(100).nullable()');
+    expect(result.content).toContain('ratio: z.number().default(0.5).nullable()');
+    expect(result.content).toContain('isMember: z.boolean().default(true).nullable()');
   });
 
   it('with default input values as enum types with no underscores', async () => {
@@ -1000,10 +1000,10 @@ describe('zodv4', () => {
     expect(result.content).toContain('export function PageInputSchema(): z.ZodObject<Properties<PageInput>>');
 
     expect(result.content).toContain('pageType: PageTypeSchema.default(PageType.BasicAuth)');
-    expect(result.content).toContain('greeting: z.string().default("Hello").nullish()');
-    expect(result.content).toContain('score: z.number().default(100).nullish()');
-    expect(result.content).toContain('ratio: z.number().default(0.5).nullish()');
-    expect(result.content).toContain('isMember: z.boolean().default(true).nullish()');
+    expect(result.content).toContain('greeting: z.string().default("Hello").nullable()');
+    expect(result.content).toContain('score: z.number().default(100).nullable()');
+    expect(result.content).toContain('ratio: z.number().default(0.5).nullable()');
+    expect(result.content).toContain('isMember: z.boolean().default(true).nullable()');
   });
 
   it('with default input values', async () => {
@@ -1048,11 +1048,11 @@ describe('zodv4', () => {
       export function PageInputSchema(): z.ZodObject<Properties<PageInput>> {
         return z.object({
           pageType: PageTypeSchema.default("PUBLIC"),
-          greeting: z.string().default("Hello").nullish(),
-          newline: z.string().default("Hello\\nWorld").nullish(),
-          score: z.number().default(100).nullish(),
-          ratio: z.number().default(0.5).nullish(),
-          isMember: z.boolean().default(true).nullish()
+          greeting: z.string().default("Hello").nullable(),
+          newline: z.string().default("Hello\\nWorld").nullable(),
+          score: z.number().default(100).nullable(),
+          ratio: z.number().default(0.5).nullable(),
+          isMember: z.boolean().default(true).nullable()
         })
       }
       "
@@ -1096,7 +1096,7 @@ describe('zodv4', () => {
 
         export function UserCreateInputSchema(): z.ZodObject<Properties<UserCreateInput>> {
           return z.object({
-            profile: z.string().min(1, "Please input more than 1").max(5000, "Please input less than 5000").nullish()
+            profile: z.string().min(1, "Please input more than 1").max(5000, "Please input less than 5000").nullable()
           })
         }
         "
@@ -1182,7 +1182,7 @@ describe('zodv4', () => {
 
         export function UserCreateInputSchema(): z.ZodObject<Properties<UserCreateInput>> {
           return z.object({
-            profile: z.array(z.string().nullable()).min(1, "Please input more than 1").max(5000, "Please input less than 5000").nullish()
+            profile: z.array(z.string().nullable()).min(1, "Please input more than 1").max(5000, "Please input less than 5000").nullable()
           })
         }
         "
@@ -1336,16 +1336,16 @@ describe('zodv4', () => {
         export function BookSchema(): z.ZodObject<Properties<Book>> {
           return z.object({
             __typename: z.literal('Book').optional(),
-            author: AuthorSchema().nullish(),
-            title: z.string().nullish()
+            author: AuthorSchema().nullable(),
+            title: z.string().nullable()
           })
         }
 
         export function AuthorSchema(): z.ZodObject<Properties<Author>> {
           return z.object({
             __typename: z.literal('Author').optional(),
-            books: z.array(BookSchema().nullable()).nullish(),
-            name: z.string().nullish()
+            books: z.array(BookSchema().nullable()).nullable(),
+            name: z.string().nullable()
           })
         }
         "
@@ -1439,10 +1439,10 @@ describe('zodv4', () => {
           return z.object({
             __typename: z.literal('User').optional(),
             id: z.string(),
-            name: z.string().nullish(),
-            age: z.number().nullish(),
-            email: z.string().email().nullish(),
-            isMember: z.boolean().nullish(),
+            name: z.string().nullable(),
+            age: z.number().nullable(),
+            email: z.string().email().nullable(),
+            isMember: z.boolean().nullable(),
             createdAt: z.date()
           })
         }
@@ -1489,14 +1489,14 @@ describe('zodv4', () => {
         export function SquareSchema(): z.ZodObject<Properties<Square>> {
           return z.object({
             __typename: z.literal('Square').optional(),
-            size: z.number().nullish()
+            size: z.number().nullable()
           })
         }
 
         export function CircleSchema(): z.ZodObject<Properties<Circle>> {
           return z.object({
             __typename: z.literal('Circle').optional(),
-            radius: z.number().nullish()
+            radius: z.number().nullable()
           })
         }
 
@@ -1545,14 +1545,14 @@ describe('zodv4', () => {
         export function SquareSchema(): z.ZodObject<Properties<t.Square>> {
           return z.object({
             __typename: z.literal('Square').optional(),
-            size: z.number().nullish()
+            size: z.number().nullable()
           })
         }
 
         export function CircleSchema(): z.ZodObject<Properties<t.Circle>> {
           return z.object({
             __typename: z.literal('Circle').optional(),
-            radius: z.number().nullish()
+            radius: z.number().nullable()
           })
         }
 
@@ -1603,14 +1603,14 @@ describe('zodv4', () => {
         export function SquareSchema(): z.ZodObject<Properties<Square>> {
           return z.object({
             __typename: z.literal('Square').optional(),
-            size: z.number().nullish()
+            size: z.number().nullable()
           })
         }
 
         export function CircleSchema(): z.ZodObject<Properties<Circle>> {
           return z.object({
             __typename: z.literal('Circle').optional(),
-            radius: z.number().nullish()
+            radius: z.number().nullable()
           })
         }
 
@@ -1621,7 +1621,7 @@ describe('zodv4', () => {
         export function GeometrySchema(): z.ZodObject<Properties<Geometry>> {
           return z.object({
             __typename: z.literal('Geometry').optional(),
-            shape: ShapeSchema().nullish()
+            shape: ShapeSchema().nullable()
           })
         }
         "
@@ -1661,7 +1661,7 @@ describe('zodv4', () => {
         export function CircleSchema(): z.ZodObject<Properties<Circle>> {
           return z.object({
             __typename: z.literal('Circle').optional(),
-            radius: z.number().nullish()
+            radius: z.number().nullable()
           })
         }
 
@@ -1760,19 +1760,19 @@ describe('zodv4', () => {
 
         export const CircleSchema: z.ZodObject<Properties<Circle>> = z.object({
             __typename: z.literal('Circle').optional(),
-            radius: z.number().nullish()
+            radius: z.number().nullable()
         });
 
         export const SquareSchema: z.ZodObject<Properties<Square>> = z.object({
             __typename: z.literal('Square').optional(),
-            size: z.number().nullish()
+            size: z.number().nullable()
         });
 
         export const ShapeSchema = z.union([CircleSchema, SquareSchema]);
 
         export const GeometrySchema: z.ZodObject<Properties<Geometry>> = z.object({
             __typename: z.literal('Geometry').optional(),
-            shape: ShapeSchema.nullish()
+            shape: ShapeSchema.nullable()
         });
         "
       `)
@@ -1812,17 +1812,17 @@ describe('zodv4', () => {
         export function MyTypeSchema(): z.ZodObject<Properties<MyType>> {
           return z.object({
             __typename: z.literal('MyType').optional(),
-            foo: z.string().nullish()
+            foo: z.string().nullable()
           })
         }
 
         export function MyTypeFooArgsSchema(): z.ZodObject<Properties<MyTypeFooArgs>> {
           return z.object({
-            a: z.string().nullish(),
+            a: z.string().nullable(),
             b: z.number(),
-            c: z.boolean().nullish(),
+            c: z.boolean().nullable(),
             d: z.number(),
-            e: z.string().nullish()
+            e: z.string().nullable()
           })
         }
         "
@@ -1878,7 +1878,7 @@ describe('zodv4', () => {
 
           export function BookSchema(): z.ZodObject<Properties<Book>> {
             return z.object({
-              title: z.string().nullish()
+              title: z.string().nullable()
             })
           }
           "
@@ -1924,15 +1924,15 @@ describe('zodv4', () => {
 
           export function BookSchema(): z.ZodObject<Properties<Book>> {
             return z.object({
-              author: AuthorSchema().nullish(),
-              title: z.string().nullish()
+              author: AuthorSchema().nullable(),
+              title: z.string().nullable()
             })
           }
 
           export function AuthorSchema(): z.ZodObject<Properties<Author>> {
             return z.object({
-              books: z.array(BookSchema().nullable()).nullish(),
-              name: z.string().nullish()
+              books: z.array(BookSchema().nullable()).nullable(),
+              name: z.string().nullable()
             })
           }
           "
@@ -2012,8 +2012,8 @@ describe('zodv4', () => {
           export function AuthorSchema(): z.ZodObject<Properties<Author>> {
             return z.object({
               __typename: z.literal('Author').optional(),
-              books: z.array(BookSchema()).nullish(),
-              name: z.string().nullish()
+              books: z.array(BookSchema()).nullable(),
+              name: z.string().nullable()
             })
           }
           "
@@ -2158,10 +2158,10 @@ describe('zodv4', () => {
       export const UserSchema: z.ZodObject<Properties<User>> = z.object({
           __typename: z.literal('User').optional(),
           id: z.string(),
-          name: z.string().nullish(),
-          age: z.number().nullish(),
-          email: z.string().email().nullish(),
-          isMember: z.boolean().nullish(),
+          name: z.string().nullable(),
+          age: z.number().nullable(),
+          email: z.string().email().nullable(),
+          isMember: z.boolean().nullable(),
           createdAt: z.date()
       });
 
@@ -2221,7 +2221,7 @@ describe('zodv4', () => {
 
       export function QueryInputSchema(): z.ZodObject<Properties<QueryInput>> {
         return z.object({
-          _dummy: TestSchema.nullish()
+          _dummy: TestSchema.nullable()
         })
       }
       "

@@ -22,22 +22,22 @@ export const PageTypeSchema = z.enum(PageType);
 export function AdminSchema(): z.ZodObject<Properties<Admin>> {
   return z.object({
     __typename: z.literal('Admin').optional(),
-    lastModifiedAt: definedNonNullAnySchema.nullish()
+    lastModifiedAt: definedNonNullAnySchema.nullable()
   })
 }
 
 export function AttributeInputSchema(): z.ZodObject<Properties<AttributeInput>> {
   return z.object({
-    key: z.string().nullish(),
-    val: z.string().nullish()
+    key: z.string().nullable(),
+    val: z.string().nullable()
   })
 }
 
 export function ComponentInputSchema(): z.ZodObject<Properties<ComponentInput>> {
   return z.object({
-    child: z.lazy(() => ComponentInputSchema().nullish()),
-    childrens: z.array(z.lazy(() => ComponentInputSchema().nullable())).nullish(),
-    event: z.lazy(() => EventInputSchema().nullish()),
+    child: z.lazy(() => ComponentInputSchema().nullable()),
+    childrens: z.array(z.lazy(() => ComponentInputSchema().nullable())).nullable(),
+    event: z.lazy(() => EventInputSchema().nullable()),
     name: z.string(),
     type: ButtonComponentTypeSchema
   })
@@ -45,7 +45,7 @@ export function ComponentInputSchema(): z.ZodObject<Properties<ComponentInput>> 
 
 export function DropDownComponentInputSchema(): z.ZodObject<Properties<DropDownComponentInput>> {
   return z.object({
-    dropdownComponent: z.lazy(() => ComponentInputSchema().nullish()),
+    dropdownComponent: z.lazy(() => ComponentInputSchema().nullable()),
     getEvent: z.lazy(() => EventInputSchema())
   })
 }
@@ -60,63 +60,63 @@ export function EventArgumentInputSchema(): z.ZodObject<Properties<EventArgument
 export function EventInputSchema(): z.ZodObject<Properties<EventInput>> {
   return z.object({
     arguments: z.array(z.lazy(() => EventArgumentInputSchema())),
-    options: z.array(EventOptionTypeSchema).nullish()
+    options: z.array(EventOptionTypeSchema).nullable()
   })
 }
 
 export function GuestSchema(): z.ZodObject<Properties<Guest>> {
   return z.object({
     __typename: z.literal('Guest').optional(),
-    lastLoggedIn: definedNonNullAnySchema.nullish()
+    lastLoggedIn: definedNonNullAnySchema.nullable()
   })
 }
 
 export function HttpInputSchema(): z.ZodObject<Properties<HttpInput>> {
   return z.object({
-    method: HttpMethodSchema.nullish(),
+    method: HttpMethodSchema.nullable(),
     url: definedNonNullAnySchema
   })
 }
 
 export function LayoutInputSchema(): z.ZodObject<Properties<LayoutInput>> {
   return z.object({
-    dropdown: z.lazy(() => DropDownComponentInputSchema().nullish())
+    dropdown: z.lazy(() => DropDownComponentInputSchema().nullable())
   })
 }
 
 export function MyTypeSchema(): z.ZodObject<Properties<MyType>> {
   return z.object({
     __typename: z.literal('MyType').optional(),
-    foo: z.string().nullish()
+    foo: z.string().nullable()
   })
 }
 
 export function MyTypeFooArgsSchema(): z.ZodObject<Properties<MyTypeFooArgs>> {
   return z.object({
-    a: z.string().nullish(),
+    a: z.string().nullable(),
     b: z.number(),
-    c: z.boolean().nullish(),
+    c: z.boolean().nullable(),
     d: z.number()
   })
 }
 
 export function NamerSchema(): z.ZodObject<Properties<Namer>> {
   return z.object({
-    name: z.string().nullish()
+    name: z.string().nullable()
   })
 }
 
 export function PageInputSchema(): z.ZodObject<Properties<PageInput>> {
   return z.object({
-    attributes: z.array(z.lazy(() => AttributeInputSchema())).nullish(),
-    date: definedNonNullAnySchema.nullish(),
+    attributes: z.array(z.lazy(() => AttributeInputSchema())).nullable(),
+    date: definedNonNullAnySchema.nullable(),
     height: z.number(),
     id: z.string(),
     layout: z.lazy(() => LayoutInputSchema()),
     pageType: PageTypeSchema,
-    postIDs: z.array(z.string()).nullish(),
+    postIDs: z.array(z.string()).nullable(),
     show: z.boolean(),
-    tags: z.array(z.string().nullable()).nullish(),
+    tags: z.array(z.string().nullable()).nullable(),
     title: z.string(),
     width: z.number()
   })
@@ -125,13 +125,13 @@ export function PageInputSchema(): z.ZodObject<Properties<PageInput>> {
 export function UserSchema(): z.ZodObject<Properties<User>> {
   return z.object({
     __typename: z.literal('User').optional(),
-    createdAt: definedNonNullAnySchema.nullish(),
-    email: z.string().nullish(),
-    id: z.string().nullish(),
-    kind: UserKindSchema().nullish(),
-    name: z.string().nullish(),
-    password: z.string().nullish(),
-    updatedAt: definedNonNullAnySchema.nullish()
+    createdAt: definedNonNullAnySchema.nullable(),
+    email: z.string().nullable(),
+    id: z.string().nullable(),
+    kind: UserKindSchema().nullable(),
+    name: z.string().nullable(),
+    password: z.string().nullable(),
+    updatedAt: definedNonNullAnySchema.nullable()
   })
 }
 
